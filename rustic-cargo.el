@@ -804,7 +804,7 @@ When calling this function from `rustic-popup-mode', always use the value of
   (interactive "P")
   (when arg
     (setq rustic-cargo-check-arguments
-          (read-string "Cargo check arguments: " "")))
+          (read-string "Cargo check arguments: " rustic-cargo-check-arguments)))
   (rustic-run-cargo-command `(,(rustic-cargo-bin)
                               ,rustic-cargo-check-exec-command
                               ,@(split-string rustic-cargo-check-arguments))))
