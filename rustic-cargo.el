@@ -24,6 +24,11 @@
   :type 'string
   :group 'rustic-cargo)
 
+(defcustom rustic-cargo-fix-exec-command "check"
+  "Execute command to run `cargo check'."
+  :type 'string
+  :group 'rustic-cargo)
+
 (defcustom rustic-cargo-test-exec-command "test"
   "Execute command to run `cargo test'."
   :type 'string
@@ -808,6 +813,18 @@ When calling this function from `rustic-popup-mode', always use the value of
   (rustic-run-cargo-command `(,(rustic-cargo-bin)
                               ,rustic-cargo-check-exec-command
                               ,@(split-string rustic-cargo-check-arguments))))
+
+;;;###autoload
+(defun rustic-cargo-fix (&optional arg)
+  "Run `cargo fix' for the current project, allow configuring
+`rustic-cargo-fix-arguments' when prefix argument (C-u) is enabled."
+  (interactive "P")
+  (when arg
+    (setq rustic-cargo-fix-arguments
+          (read-string "Cargo check arguments: " rustic-cargo-fix-arguments)))
+  (rustic-run-cargo-command `(,(rustic-cargo-bin)
+                              ,rustic-cargo-fix-exec-command
+                              ,@(split-string rustic-cargo-fix-arguments))))
 
 ;;;###autoload
 (defun rustic-cargo-bench ()
